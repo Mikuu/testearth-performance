@@ -1,8 +1,9 @@
 import { group } from "k6";
 import { createBookScenario } from "./src/scenarios/createBook.scenario.js";
 import { getBookScenario } from "./src/scenarios/getBook.scenario.js";
-import { updateBookScenario } from "./src/scenarios/updateBook.scenario.js";
+import { updateBookScenario, updateNewCreatedBookScenario } from "./src/scenarios/updateBook.scenario.js";
 import { deleteBookScenario } from "./src/scenarios/deleteBook.scenario.js";
+import { compositeScenario } from "./src/scenarios/composite.scenario.js";
 
 const stages = [
     { duration: "10s", target: 5 },
@@ -46,6 +47,14 @@ export const options = {
             gracefulRampDown: "0s",
             exec: "scn_4_deleteBook",
         },
+
+        scn_5: {
+            executor: "ramping-vus",
+            startVUs: 1,
+            stages: stages,
+            gracefulRampDown: "0s",
+            exec: "scn_5_composite",
+        },
     },
 };
 
@@ -64,6 +73,7 @@ export function scn_2_getBook() {
 export function scn_3_updateBook() {
     group("Scenarios - update book", () => {
         updateBookScenario();
+        updateNewCreatedBookScenario();
     });
 }
 
@@ -71,4 +81,10 @@ export function scn_4_deleteBook() {
     group("Scenarios - delete book", () => {
         deleteBookScenario();
     });
+}
+
+export function scn_5_composite() {
+    group("Scenario - composite", () => {
+        compositeScenario();
+    })
 }

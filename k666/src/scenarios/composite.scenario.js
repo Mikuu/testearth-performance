@@ -3,23 +3,8 @@ import randomUtils from "../utils/random.utils.js";
 import { checking } from "../utils/check.utils.js";
 import { responseObj } from "../utils/common.utils.js";
 
-// single-point test
-export function updateBookScenario() {
-    const bid = randomUtils.randomBID();
-    const payload = JSON.stringify({
-        title: randomUtils.randomTitle(),
-        author: randomUtils.randomAuthor(),
-        price: randomUtils.randomPrice(),
-        publishedAt: randomUtils.currentDate()
-    });
-
-    const res = booksvcClient.updateBook(bid, payload);
-
-    checking.requestSucceedCheck(res, "update book");
-}
-
 // scenario-based test
-export function updateNewCreatedBookScenario() {
+export function compositeScenario() {
     let payload = JSON.stringify({
         title: randomUtils.randomTitle(),
         author: randomUtils.randomAuthor(),
@@ -28,9 +13,12 @@ export function updateNewCreatedBookScenario() {
     });
 
     let res = booksvcClient.createBook(payload);
-    checking.requestSucceedCheck(res, "update book");
+    checking.requestSucceedCheck(res, "create book");
 
     const responseObject = responseObj(res);
+
+    res = booksvcClient.getBook(responseObject.bid);
+    checking.requestSucceedCheck(res, "get book");
 
     payload = JSON.stringify({
         title: randomUtils.randomTitle(),
@@ -39,6 +27,9 @@ export function updateNewCreatedBookScenario() {
         publishedAt: randomUtils.currentDate()
     });
 
-    res = booksvcClient.updateBook(responseObject.bid, payload)
-    checking.requestSucceedCheck(res, "update new created book");
+    res = booksvcClient.updateBook(responseObject.bid, payload);
+    checking.requestSucceedCheck(res, "update book");
+
+    res = booksvcClient.deleteBook(responseObject.bid);
+    checking.requestSucceedCheck(res, "delete book");
 }
