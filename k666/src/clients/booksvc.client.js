@@ -9,13 +9,7 @@ const commonHeaders = {
 };
 
 export default {
-    createBook: () => {
-        const payload = JSON.stringify({
-            title: randomUtils.randomTitle(),
-            author: randomUtils.randomAuthor(),
-            price: randomUtils.randomPrice(),
-            publishedAt: randomUtils.currentDate()
-        });
+    createBook: (payload) => {
         const params = { headers: commonHeaders };
         const res = http.post(bookUrl, payload, params);
 
@@ -29,22 +23,16 @@ export default {
         return res;
     },
 
-    updateBook: () => {
-        const url = bookUrl + "/" + randomUtils.randomBID();
-        const payload = JSON.stringify({
-            title: randomUtils.randomTitle(),
-            author: randomUtils.randomAuthor(),
-            price: randomUtils.randomPrice(),
-            publishedAt: randomUtils.currentDate()
-        });
+    updateBook: (bid, payload) => {
+        const url = bookUrl + "/" + bid;
         const params = { headers: commonHeaders };
         const res = http.put(url, payload, params);
 
         return res;
     },
 
-    deleteBook: () => {
-        const url = bookUrl + "/" + randomUtils.randomBID();
+    deleteBook: (bid) => {
+        const url = bookUrl + "/" + bid;
         const params = { headers: commonHeaders };
         const res = http.del(url, "", params);
 
