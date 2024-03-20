@@ -5,7 +5,7 @@ import { updateBookScenario } from "./src/scenarios/updateBook.scenario.js";
 import { deleteBookScenario } from "./src/scenarios/deleteBook.scenario.js";
 
 const stages = [
-    { duration: "30s", target: 5 },
+    { duration: "10s", target: 5 },
     // { duration: "15m", target: 15 },
     // { duration: "15m", target: 30 },
     // { duration: "10m", target: 10 },

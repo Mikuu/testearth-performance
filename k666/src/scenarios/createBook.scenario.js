@@ -1,5 +1,6 @@
 import booksvcClient from "../clients/booksvc.client.js";
 import randomUtils from "../utils/random.utils.js";
+import { checking } from "../utils/check.utils.js";
 
 export function createBookScenario() {
     const payload = JSON.stringify({
@@ -8,5 +9,8 @@ export function createBookScenario() {
         price: randomUtils.randomPrice(),
         publishedAt: randomUtils.currentDate()
     });
+
     const res = booksvcClient.createBook(payload);
+
+    checking.requestSucceedCheck(res, "create book");
 }

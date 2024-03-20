@@ -1,6 +1,6 @@
 import http from "k6/http";
 import { SUT } from "../configs/booksvc.config.js";
-import randomUtils from "../utils/random.utils.js";
+import metrics from "../configs/metric.config.js";
 
 const bookUrl = SUT.host + SUT.basePath + SUT.bookPath;
 
@@ -8,18 +8,37 @@ const commonHeaders = {
     "Content-Type": "application/json",
 };
 
+const addGeneralErrorsToMetrics = (errorCounter, res) => {
+    if (res.status !== 200 || res.status !== 201) {
+        errorCounter.add(1);
+        metrics.errorCheck.generalError.add(1);
+    }
+};
+
+const addRequestsDataToMetrics = (metricRequest, res) => {
+    metricRequest.requests.add(1);
+    metricRequest.requestDuration.add(res.timings.duration);
+    metricRequest.requestSending.add(res.timings.sending);
+    metricRequest.requestWaiting.add(res.timings.waiting);
+    metricRequest.requestReceiving.add(res.timings.receiving);
+    addGeneralErrorsToMetrics(metricRequest.errors, res);
+};
+
 export default {
     createBook: (payload) => {
         const params = { headers: commonHeaders };
         const res = http.post(bookUrl, payload, params);
 
+        addRequestsDataToMetrics(metrics.createBookRequest, res);
         return res;
     },
 
-    getBook: () => {
+    getBook: (bid) => {
+        const url = bookUrl + "?bid=" + bid;
         const params = { headers: commonHeaders };
-        const res = http.get(bookUrl, params);
+        const res = http.get(url, params);
 
+        addRequestsDataToMetrics(metrics.getBookRequest, res);
         return res;
     },
 
@@ -28,6 +47,7 @@ export default {
         const params = { headers: commonHeaders };
         const res = http.put(url, payload, params);
 
+        addRequestsDataToMetrics(metrics.updateBookRequest, res);
         return res;
     },
 
@@ -36,6 +56,7 @@ export default {
         const params = { headers: commonHeaders };
         const res = http.del(url, "", params);
 
+        addRequestsDataToMetrics(metrics.deleteBookRequest, res);
         return res;
     },
 };

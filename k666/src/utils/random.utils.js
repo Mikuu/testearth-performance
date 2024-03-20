@@ -32,7 +32,7 @@ const randomPrice = () => {
 };
 
 const randomBID = () => {
-    return "BID-FK-" + randomString(20).toUpperCase();
+    return "FKBID" + randomString(20).toUpperCase();
 }
 
 export default {
