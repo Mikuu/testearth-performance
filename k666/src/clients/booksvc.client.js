@@ -9,7 +9,7 @@ const commonHeaders = {
 };
 
 const addGeneralErrorsToMetrics = (errorCounter, res) => {
-    if (res.status !== 200 || res.status !== 201) {
+    if (res.status !== 200 && res.status !== 201) {
         errorCounter.add(1);
         metrics.errorCheck.generalError.add(1);
     }
