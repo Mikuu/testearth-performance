@@ -12,6 +12,11 @@ const addGeneralErrorsToMetrics = (errorCounter, res) => {
     if (res.status !== 200 && res.status !== 201) {
         errorCounter.add(1);
         metrics.errorCheck.generalError.add(1);
+
+    } else {
+        // add this otherwise k6 won't store empty counter data and result in no data in influxdb.
+        errorCounter.add(0);
+        metrics.errorCheck.generalError.add(0);
     }
 };
 
