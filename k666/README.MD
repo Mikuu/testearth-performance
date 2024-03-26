@@ -18,7 +18,12 @@ k6 run run.js
 ### Visualize test data
 K6 by default only print the test data to console, there are other 2 ways to visualize the test results much better, with `xk6-dashboard` and `grafana`.
 
-### visualize test data with xk6-dashboard
+### visualize test data with built-in web dashboard
+K6 ships a built-in web dashboard which can display the real-time test data and export HTML report
+```shell
+./run2dashboard.sh
+```
+Then access `http://localhost:5665` in the browser.
 
 ### visualize test data with grafana
 This is the most advanced and powerful way to visualize k6 test result, to achieve this, it requires:

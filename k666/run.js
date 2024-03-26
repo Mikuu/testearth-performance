@@ -1,4 +1,5 @@
 import { group } from "k6";
+import optionsConfig from "./src/configs/options.config.js";
 import { createBookScenario } from "./src/scenarios/createBook.scenario.js";
 import { getBookScenario } from "./src/scenarios/getBook.scenario.js";
 import { updateBookScenario, updateNewCreatedBookScenario } from "./src/scenarios/updateBook.scenario.js";
@@ -6,7 +7,7 @@ import { deleteBookScenario } from "./src/scenarios/deleteBook.scenario.js";
 import { compositeScenario } from "./src/scenarios/composite.scenario.js";
 
 const stages = [
-    { duration: "60s", target: 5 },
+    { duration: "10m", target: 5 },
     // { duration: "15m", target: 15 },
     // { duration: "15m", target: 30 },
     // { duration: "10m", target: 10 },
@@ -14,7 +15,8 @@ const stages = [
 ];
 
 export const options = {
-    summaryTrendStats: ["avg", "min", "max", "med", "p(30)", "p(50)", "p(80)", "p(90)", "p(95)"],
+    systemTags: optionsConfig.systemTags,
+    summaryTrendStats: optionsConfig.summaryTrendStats,
     scenarios: {
         scn_1: {
             executor: "ramping-vus",
