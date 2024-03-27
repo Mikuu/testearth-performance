@@ -14,7 +14,7 @@ Access `http://localhost:8086` and follow the guidance to complete the initializ
 - password: password1
 - organization: orgariman
 - bucket: bucketariman
-- token: BLR7a7CT6rtnyMvU9MJJkP728wxvtKbCadbbmipuydQd959iZP9YC5-Xsz_5dziqBnKElkoOj_nCYZQlvWmsyw==
+- token: ksxSAcFbXlKmhDfhHrpc5tbMpJp08T0teej8X2mx1Xxne6yIA_5m0Tr95ZCfPAG0rlRhVMFAQTiBXXG68GQJMQ==
 
 ### Configure Grafana
 Access `http://localhost:3303` with default credential `admin/admin`, change the password to a new one, e.g. `password1`.
@@ -27,7 +27,7 @@ Configure the data source with below information (just for example):
 - http url: http://influxdb:8086 (use the name of influx service defined in the docker-compose file)
 - Auth - basic auth: off
 - InfluxDB details - Organization: orgariman
-- InfluxDB details - Token: BLR7a7CT6rtnyMvU9MJJkP728wxvtKbCadbbmipuydQd959iZP9YC5-Xsz_5dziqBnKElkoOj_nCYZQlvWmsyw==
+- InfluxDB details - Token: ksxSAcFbXlKmhDfhHrpc5tbMpJp08T0teej8X2mx1Xxne6yIA_5m0Tr95ZCfPAG0rlRhVMFAQTiBXXG68GQJMQ==
 - InfluxDB details - Default Bucket: bucketariman
 - InfluxDB details - Max series: 1000000
 
