@@ -27,7 +27,98 @@
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 80,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
+          "refId": "A"
+        }
+      ],
+      "title": "all requests",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "uid": "myk6db"
       },
@@ -35,7 +126,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 20,
       "panels": [],
@@ -51,12 +142,219 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#d7b1e9",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 9
+      },
+      "id": 77,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
+          "refId": "A"
+        }
+      ],
+      "title": "requests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 9
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
+          "refId": "A"
+        }
+      ],
+      "title": "errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 9
+      },
+      "id": 79,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()",
+          "refId": "A"
+        }
+      ],
+      "title": "vus",
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 13
       },
       "id": 21,
       "panels": [],
@@ -90,7 +388,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 2
+        "y": 14
       },
       "id": 23,
       "options": {
@@ -150,9 +448,9 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 2
+        "y": 14
       },
-      "id": 24,
+      "id": 78,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -229,7 +527,7 @@
         "h": 4,
         "w": 2,
         "x": 4,
-        "y": 2
+        "y": 14
       },
       "id": 25,
       "options": {
@@ -308,7 +606,7 @@
         "h": 4,
         "w": 2,
         "x": 6,
-        "y": 2
+        "y": 14
       },
       "id": 26,
       "options": {
@@ -386,7 +684,7 @@
         "h": 4,
         "w": 2,
         "x": 8,
-        "y": 2
+        "y": 14
       },
       "id": 27,
       "options": {
@@ -464,7 +762,7 @@
         "h": 4,
         "w": 2,
         "x": 10,
-        "y": 2
+        "y": 14
       },
       "id": 28,
       "options": {
@@ -542,7 +840,7 @@
         "h": 4,
         "w": 2,
         "x": 12,
-        "y": 2
+        "y": 14
       },
       "id": 29,
       "options": {
@@ -620,7 +918,7 @@
         "h": 4,
         "w": 2,
         "x": 14,
-        "y": 2
+        "y": 14
       },
       "id": 30,
       "options": {
@@ -698,7 +996,7 @@
         "h": 4,
         "w": 2,
         "x": 16,
-        "y": 2
+        "y": 14
       },
       "id": 31,
       "options": {
@@ -776,7 +1074,7 @@
         "h": 4,
         "w": 2,
         "x": 18,
-        "y": 2
+        "y": 14
       },
       "id": 32,
       "options": {
@@ -854,7 +1152,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 2
+        "y": 14
       },
       "id": 33,
       "options": {
@@ -932,7 +1230,7 @@
         "h": 4,
         "w": 2,
         "x": 22,
-        "y": 2
+        "y": 14
       },
       "id": 34,
       "options": {
@@ -1030,7 +1328,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 18
       },
       "id": 22,
       "maxDataPoints": 9999999,
@@ -1060,1014 +1358,1013 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 25
       },
       "id": 35,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "#d7b1e9",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 0,
-            "y": 3
-          },
-          "id": 36,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_reqs\")\n  |> group()\n  |> sum()",
-              "refId": "A"
-            }
-          ],
-          "title": "requests",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 2,
-            "y": 3
-          },
-          "id": 37,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_errors\")\n  |> group()\n  |> sum()",
-              "refId": "A"
-            }
-          ],
-          "title": "errors",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 4,
-            "y": 3
-          },
-          "id": 38,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto",
-            "text": {}
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
-              "refId": "A"
-            }
-          ],
-          "title": "Avg",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 6,
-            "y": 3
-          },
-          "id": 39,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
-              "refId": "A"
-            }
-          ],
-          "title": "Min",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 8,
-            "y": 3
-          },
-          "id": 40,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
-              "refId": "A"
-            }
-          ],
-          "title": "Max",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 10,
-            "y": 3
-          },
-          "id": 41,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
-              "refId": "A"
-            }
-          ],
-          "title": "Median",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 12,
-            "y": 3
-          },
-          "id": 42,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
-              "refId": "A"
-            }
-          ],
-          "title": "P95",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 14,
-            "y": 3
-          },
-          "id": 43,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
-              "refId": "A"
-            }
-          ],
-          "title": "P90",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 16,
-            "y": 3
-          },
-          "id": 44,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
-              "refId": "A"
-            }
-          ],
-          "title": "P80",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 18,
-            "y": 3
-          },
-          "id": 45,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
-              "refId": "A"
-            }
-          ],
-          "title": "P70",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 20,
-            "y": 3
-          },
-          "id": 46,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
-              "refId": "A"
-            }
-          ],
-          "title": "P50",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 10000,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 2000
-                  },
-                  {
-                    "color": "orange",
-                    "value": 3000
-                  },
-                  {
-                    "color": "red",
-                    "value": 5000
-                  },
-                  {
-                    "color": "purple",
-                    "value": 8000
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 22,
-            "y": 3
-          },
-          "id": 47,
-          "options": {
-            "minVizHeight": 108,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.4.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
-              "refId": "A"
-            }
-          ],
-          "title": "P30",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 7
-          },
-          "id": 48,
-          "maxDataPoints": 9999999,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "ddgvnzzjjq60wf"
-              },
-              "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  ",
-              "refId": "A"
-            }
-          ],
-          "title": "cm_get_book_req_duration",
-          "type": "timeseries"
-        }
-      ],
+      "panels": [],
       "title": "Get Book api",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#d7b1e9",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 26
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_reqs\")\n  |> group()\n  |> sum()",
+          "refId": "A"
+        }
+      ],
+      "title": "requests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 26
+      },
+      "id": 37,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_errors\")\n  |> group()\n  |> sum()",
+          "refId": "A"
+        }
+      ],
+      "title": "errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 4,
+        "y": 26
+      },
+      "id": 38,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {}
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
+          "refId": "A"
+        }
+      ],
+      "title": "Avg",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 6,
+        "y": 26
+      },
+      "id": 39,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "refId": "A"
+        }
+      ],
+      "title": "Min",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 8,
+        "y": 26
+      },
+      "id": 40,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "refId": "A"
+        }
+      ],
+      "title": "Max",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 10,
+        "y": 26
+      },
+      "id": 41,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "refId": "A"
+        }
+      ],
+      "title": "Median",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 12,
+        "y": 26
+      },
+      "id": 42,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "refId": "A"
+        }
+      ],
+      "title": "P95",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 14,
+        "y": 26
+      },
+      "id": 43,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
+          "refId": "A"
+        }
+      ],
+      "title": "P90",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 16,
+        "y": 26
+      },
+      "id": 44,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "refId": "A"
+        }
+      ],
+      "title": "P80",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 18,
+        "y": 26
+      },
+      "id": 45,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
+          "refId": "A"
+        }
+      ],
+      "title": "P70",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 20,
+        "y": 26
+      },
+      "id": 46,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "refId": "A"
+        }
+      ],
+      "title": "P50",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 22,
+        "y": 26
+      },
+      "id": 47,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
+          "refId": "A"
+        }
+      ],
+      "title": "P30",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 48,
+      "maxDataPoints": 9999999,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  ",
+          "refId": "A"
+        }
+      ],
+      "title": "cm_get_book_req_duration",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -2075,7 +2372,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 37
       },
       "id": 49,
       "panels": [],
@@ -2109,7 +2406,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 15
+        "y": 38
       },
       "id": 50,
       "options": {
@@ -2169,7 +2466,7 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 15
+        "y": 38
       },
       "id": 51,
       "options": {
@@ -2248,7 +2545,7 @@
         "h": 4,
         "w": 2,
         "x": 4,
-        "y": 15
+        "y": 38
       },
       "id": 52,
       "options": {
@@ -2327,7 +2624,7 @@
         "h": 4,
         "w": 2,
         "x": 6,
-        "y": 15
+        "y": 38
       },
       "id": 53,
       "options": {
@@ -2405,7 +2702,7 @@
         "h": 4,
         "w": 2,
         "x": 8,
-        "y": 15
+        "y": 38
       },
       "id": 54,
       "options": {
@@ -2483,7 +2780,7 @@
         "h": 4,
         "w": 2,
         "x": 10,
-        "y": 15
+        "y": 38
       },
       "id": 55,
       "options": {
@@ -2561,7 +2858,7 @@
         "h": 4,
         "w": 2,
         "x": 12,
-        "y": 15
+        "y": 38
       },
       "id": 56,
       "options": {
@@ -2639,7 +2936,7 @@
         "h": 4,
         "w": 2,
         "x": 14,
-        "y": 15
+        "y": 38
       },
       "id": 57,
       "options": {
@@ -2717,7 +3014,7 @@
         "h": 4,
         "w": 2,
         "x": 16,
-        "y": 15
+        "y": 38
       },
       "id": 58,
       "options": {
@@ -2795,7 +3092,7 @@
         "h": 4,
         "w": 2,
         "x": 18,
-        "y": 15
+        "y": 38
       },
       "id": 59,
       "options": {
@@ -2873,7 +3170,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 15
+        "y": 38
       },
       "id": 60,
       "options": {
@@ -2951,7 +3248,7 @@
         "h": 4,
         "w": 2,
         "x": 22,
-        "y": 15
+        "y": 38
       },
       "id": 61,
       "options": {
@@ -3049,7 +3346,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 42
       },
       "id": 62,
       "maxDataPoints": 9999999,
@@ -3084,7 +3381,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 49
       },
       "id": 63,
       "panels": [],
@@ -3118,7 +3415,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 27
+        "y": 50
       },
       "id": 64,
       "options": {
@@ -3178,7 +3475,7 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 27
+        "y": 50
       },
       "id": 65,
       "options": {
@@ -3257,7 +3554,7 @@
         "h": 4,
         "w": 2,
         "x": 4,
-        "y": 27
+        "y": 50
       },
       "id": 66,
       "options": {
@@ -3336,7 +3633,7 @@
         "h": 4,
         "w": 2,
         "x": 6,
-        "y": 27
+        "y": 50
       },
       "id": 67,
       "options": {
@@ -3414,7 +3711,7 @@
         "h": 4,
         "w": 2,
         "x": 8,
-        "y": 27
+        "y": 50
       },
       "id": 68,
       "options": {
@@ -3492,7 +3789,7 @@
         "h": 4,
         "w": 2,
         "x": 10,
-        "y": 27
+        "y": 50
       },
       "id": 69,
       "options": {
@@ -3570,7 +3867,7 @@
         "h": 4,
         "w": 2,
         "x": 12,
-        "y": 27
+        "y": 50
       },
       "id": 70,
       "options": {
@@ -3648,7 +3945,7 @@
         "h": 4,
         "w": 2,
         "x": 14,
-        "y": 27
+        "y": 50
       },
       "id": 71,
       "options": {
@@ -3726,7 +4023,7 @@
         "h": 4,
         "w": 2,
         "x": 16,
-        "y": 27
+        "y": 50
       },
       "id": 72,
       "options": {
@@ -3804,7 +4101,7 @@
         "h": 4,
         "w": 2,
         "x": 18,
-        "y": 27
+        "y": 50
       },
       "id": 73,
       "options": {
@@ -3882,7 +4179,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 27
+        "y": 50
       },
       "id": 74,
       "options": {
@@ -3960,7 +4257,7 @@
         "h": 4,
         "w": 2,
         "x": 22,
-        "y": 27
+        "y": 50
       },
       "id": 75,
       "options": {
@@ -4058,7 +4355,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 54
       },
       "id": 76,
       "maxDataPoints": 9999999,
@@ -4088,7 +4385,6 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -4126,6 +4422,6 @@
   "timezone": "browser",
   "title": "k6 reporting",
   "uid": "84OnF0OGk",
-  "version": 12,
+  "version": 15,
   "weekStart": ""
 }
