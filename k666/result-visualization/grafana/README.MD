@@ -77,7 +77,7 @@ After that, click `SCRIPT EDITOR` button, you can get the script editor similar 
 
 ![influxdb-dataExplorer-influxQuery-script](../docs/images/influxdb-dataExplorer-fluxQuery-script.png)
 
-#### Tricks for the k6 data
+#### Tricks
 
 ##### K6 data in group
 When K6 test scripts use `group` to package different scenarios, the test data pushed to influxdb will be grouped into multiple tables,
@@ -95,3 +95,8 @@ Then you can use `group` function to regroup all the data into one table,
 then here will be only one line the graph.
 
 ![k6-data-multiGroup-regroup-graph](../docs/images/k6-data-multiGroup-regroup.graph.png)
+
+##### Custom panel legend
+For Time series graph, to display multiple lines in a same graph, create multiple queries, one query represent one line, then chose `Overrides` -> Add field override -> Fields returned by query (select query name) -> Standard options Display name (input the name which will be displayed as legend).
+
+![grafana-custom-legend](../docs/images/grafana-custom-legend.png)

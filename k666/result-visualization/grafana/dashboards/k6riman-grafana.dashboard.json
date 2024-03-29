@@ -27,97 +27,6 @@
   "links": [],
   "panels": [
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 80,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
-          },
-          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
-          "refId": "A"
-        }
-      ],
-      "title": "all requests",
-      "type": "timeseries"
-    },
-    {
       "collapsed": false,
       "datasource": {
         "uid": "myk6db"
@@ -126,7 +35,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "id": 20,
       "panels": [],
@@ -168,7 +77,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 9
+        "y": 1
       },
       "id": 77,
       "options": {
@@ -228,7 +137,7 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 9
+        "y": 1
       },
       "id": 24,
       "options": {
@@ -318,9 +227,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 8,
         "x": 4,
-        "y": 9
+        "y": 1
       },
       "id": 79,
       "options": {
@@ -346,6 +255,791 @@
         }
       ],
       "title": "vus",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 12,
+        "y": 1
+      },
+      "id": 82,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "refId": "A"
+        }
+      ],
+      "title": "Min",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 14,
+        "y": 1
+      },
+      "id": 83,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "refId": "A"
+        }
+      ],
+      "title": "Max",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 16,
+        "y": 1
+      },
+      "id": 84,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "refId": "A"
+        }
+      ],
+      "title": "Median",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 18,
+        "y": 1
+      },
+      "id": 85,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "refId": "A"
+        }
+      ],
+      "title": "P95",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 20,
+        "y": 1
+      },
+      "id": 86,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "refId": "A"
+        }
+      ],
+      "title": "P80",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 10000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2000
+              },
+              {
+                "color": "orange",
+                "value": 3000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "purple",
+                "value": 8000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 22,
+        "y": 1
+      },
+      "id": 87,
+      "options": {
+        "minVizHeight": 108,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "refId": "A"
+        }
+      ],
+      "title": "P50",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "create book duration"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "create book duration"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "update book duration"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "update book duration"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "delete book duration"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "delete book duration"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "get book duration"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "get book duration"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "id": 80,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n",
+          "refId": "create book duration"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "hide": false,
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
+          "refId": "update book duration"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "hide": false,
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")",
+          "refId": "delete book duration"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "hide": false,
+          "query": "aggregateWindowInterview = 1s\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n",
+          "refId": "get book duration"
+        }
+      ],
+      "title": "all requests",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddgvnzzjjq60wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 42,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "vu"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "vu"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "requests"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "requests"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "errors"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "errors"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      "id": 81,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
+          "refId": "vu"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "hide": false,
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "refId": "requests"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddgvnzzjjq60wf"
+          },
+          "hide": false,
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "refId": "errors"
+        }
+      ],
+      "title": "vu & requests & errors",
       "type": "timeseries"
     },
     {
@@ -4422,6 +5116,6 @@
   "timezone": "browser",
   "title": "k6 reporting",
   "uid": "84OnF0OGk",
-  "version": 15,
+  "version": 16,
   "weekStart": ""
 }
