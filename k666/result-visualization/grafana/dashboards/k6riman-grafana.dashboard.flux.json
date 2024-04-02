@@ -5075,7 +5075,7 @@
           "refId": "A"
         }
       ],
-      "title": "cm_update_book_req_duration",
+      "title": "cm_delete_book_req_duration",
       "type": "timeseries"
     }
   ],
@@ -5114,8 +5114,8 @@
     ]
   },
   "timezone": "browser",
-  "title": "k6 reporting",
+  "title": "k6 reporting - flux",
   "uid": "84OnF0OGk",
-  "version": 16,
+  "version": 18,
   "weekStart": ""
 }
