@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB-FLUX",
+      "label": "influxdb-flux",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.4.0"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -23,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11837,
   "graphTooltip": 2,
-  "id": 2,
+  "id": null,
   "links": [],
   "panels": [
     {
@@ -53,7 +96,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -101,7 +144,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -113,7 +156,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -161,7 +204,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -173,7 +216,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -248,7 +291,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()",
           "refId": "A"
@@ -260,7 +303,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -326,7 +369,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
           "refId": "A"
@@ -338,7 +381,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -404,7 +447,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
           "refId": "A"
@@ -416,7 +459,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -482,7 +525,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
           "refId": "A"
@@ -494,7 +537,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -560,7 +603,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
@@ -572,7 +615,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -638,7 +681,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
@@ -650,7 +693,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -716,7 +759,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
@@ -728,7 +771,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -856,7 +899,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n",
           "refId": "create book duration"
@@ -864,7 +907,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
           "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
@@ -873,7 +916,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
           "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")",
@@ -882,7 +925,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
           "query": "aggregateWindowInterview = 1s\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n",
@@ -895,7 +938,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1015,7 +1058,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
           "refId": "vu"
@@ -1023,7 +1066,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
@@ -1032,7 +1075,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
@@ -1058,7 +1101,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1106,7 +1149,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_reqs\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -1118,7 +1161,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1166,7 +1209,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_errors\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -1178,7 +1221,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1245,7 +1288,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
           "refId": "A"
@@ -1257,7 +1300,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1323,7 +1366,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
           "refId": "A"
@@ -1335,7 +1378,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1401,7 +1444,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
           "refId": "A"
@@ -1413,7 +1456,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1479,7 +1522,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
           "refId": "A"
@@ -1491,7 +1534,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1557,7 +1600,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
@@ -1569,7 +1612,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1635,7 +1678,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
           "refId": "A"
@@ -1647,7 +1690,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1713,7 +1756,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
@@ -1725,7 +1768,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1791,7 +1834,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
           "refId": "A"
@@ -1803,7 +1846,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1869,7 +1912,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
@@ -1881,7 +1924,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1947,7 +1990,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
           "refId": "A"
@@ -1959,7 +2002,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2042,7 +2085,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  ",
           "refId": "A"
@@ -2067,7 +2110,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2079,8 +2122,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d7b1e9",
-                "value": null
+                "color": "#d7b1e9"
               }
             ]
           }
@@ -2115,7 +2157,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_reqs\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -2127,7 +2169,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2139,8 +2181,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2175,7 +2216,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_errors\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -2187,7 +2228,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2201,8 +2242,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2254,7 +2294,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
           "refId": "A"
@@ -2266,7 +2306,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2280,8 +2320,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2332,7 +2371,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
           "refId": "A"
@@ -2344,7 +2383,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2358,8 +2397,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2410,7 +2448,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
           "refId": "A"
@@ -2422,7 +2460,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2436,8 +2474,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2488,7 +2525,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
           "refId": "A"
@@ -2500,7 +2537,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2514,8 +2551,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2566,7 +2602,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
@@ -2578,7 +2614,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2592,8 +2628,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2644,7 +2679,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
           "refId": "A"
@@ -2656,7 +2691,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2670,8 +2705,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2722,7 +2756,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
@@ -2734,7 +2768,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2748,8 +2782,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2800,7 +2833,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
           "refId": "A"
@@ -2812,7 +2845,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2826,8 +2859,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2878,7 +2910,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
@@ -2890,7 +2922,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2904,8 +2936,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2956,7 +2987,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
           "refId": "A"
@@ -2968,7 +2999,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3015,8 +3046,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3051,7 +3081,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  ",
           "refId": "A"
@@ -3076,7 +3106,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3088,8 +3118,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d7b1e9",
-                "value": null
+                "color": "#d7b1e9"
               }
             ]
           }
@@ -3124,7 +3153,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_reqs\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -3136,7 +3165,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3148,8 +3177,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -3184,7 +3212,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_errors\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -3196,7 +3224,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3210,8 +3238,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3263,7 +3290,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
           "refId": "A"
@@ -3275,7 +3302,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3289,8 +3316,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3341,7 +3367,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
           "refId": "A"
@@ -3353,7 +3379,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3367,8 +3393,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3419,7 +3444,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
           "refId": "A"
@@ -3431,7 +3456,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3445,8 +3470,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3497,7 +3521,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
           "refId": "A"
@@ -3509,7 +3533,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3523,8 +3547,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3575,7 +3598,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
@@ -3587,7 +3610,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3601,8 +3624,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3653,7 +3675,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
           "refId": "A"
@@ -3665,7 +3687,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3679,8 +3701,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3731,7 +3752,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
@@ -3743,7 +3764,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3757,8 +3778,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3809,7 +3829,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
           "refId": "A"
@@ -3821,7 +3841,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3835,8 +3855,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3887,7 +3906,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
@@ -3899,7 +3918,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3913,8 +3932,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -3965,7 +3983,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
           "refId": "A"
@@ -3977,7 +3995,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4024,8 +4042,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4060,7 +4077,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  ",
           "refId": "A"
@@ -4085,7 +4102,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4097,8 +4114,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d7b1e9",
-                "value": null
+                "color": "#d7b1e9"
               }
             ]
           }
@@ -4133,7 +4149,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_reqs\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -4145,7 +4161,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4157,8 +4173,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -4193,7 +4208,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_errors\")\n  |> group()\n  |> sum()",
           "refId": "A"
@@ -4205,7 +4220,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4219,8 +4234,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4272,7 +4286,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
           "refId": "A"
@@ -4284,7 +4298,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4298,8 +4312,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4350,7 +4363,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
           "refId": "A"
@@ -4362,7 +4375,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4376,8 +4389,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4428,7 +4440,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
           "refId": "A"
@@ -4440,7 +4452,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4454,8 +4466,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4506,7 +4517,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
           "refId": "A"
@@ -4518,7 +4529,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4532,8 +4543,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4584,7 +4594,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
@@ -4596,7 +4606,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4610,8 +4620,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4662,7 +4671,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
           "refId": "A"
@@ -4674,7 +4683,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4688,8 +4697,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4740,7 +4748,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
@@ -4752,7 +4760,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4766,8 +4774,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4818,7 +4825,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
           "refId": "A"
@@ -4830,7 +4837,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4844,8 +4851,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4896,7 +4902,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
@@ -4908,7 +4914,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4922,8 +4928,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -4974,7 +4979,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
           "refId": "A"
@@ -4986,7 +4991,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "ddgvnzzjjq60wf"
+        "uid": "${DS_INFLUXDB-FLUX}"
       },
       "fieldConfig": {
         "defaults": {
@@ -5033,8 +5038,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5069,7 +5073,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "ddgvnzzjjq60wf"
+            "uid": "${DS_INFLUXDB-FLUX}"
           },
           "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  ",
           "refId": "A"
@@ -5079,6 +5083,7 @@
       "type": "timeseries"
     }
   ],
+  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -5116,6 +5121,6 @@
   "timezone": "browser",
   "title": "k6 reporting - flux",
   "uid": "84OnF0OGk",
-  "version": 18,
+  "version": 3,
   "weekStart": ""
 }

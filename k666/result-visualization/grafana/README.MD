@@ -40,7 +40,7 @@ Go to Dashboards -> New -> New folder to add a new folder `k6riman`.
 
 ##### add dashboard
 Get into the `k6riman` folder and create dashboard by importing a specific JSON file in the `dashboards` folder in this repo,
-e.g. `k6riman-grafana.dashboard.json`
+e.g. `k6ariman-grafana.dashboard.flux.json`
 
 ![grafana-dashboard](../docs/images/grafana-dashboard.png)
 
@@ -76,6 +76,38 @@ In above page, you can select your buckets, and select the data key-values from 
 After that, click `SCRIPT EDITOR` button, you can get the script editor similar as bellow where you can edit your flux query statements, once you have done the debugging for your scripts, just copy them to Grafana, then you can get the graphic panel displayed correctly.
 
 ![influxdb-dataExplorer-influxQuery-script](../docs/images/influxdb-dataExplorer-fluxQuery-script.png)
+
+
+#### Configure Grafana to sue influxql query
+Grafana supports use both flux and influxql as its query language to fetch data from Influxdb v2 (flux will be abandoned in Influxdb v3, which only supports SQL and influxql as its query language). If you want to configure Grafana use influxql to generate reports graph, you need to configure separate datasource for that.
+
+##### add datasource with influxql
+In Grafana, go to Connections -> Data sources, choose create a new datasource with below configurations:
+- Name: influxdb-influxql (example),
+- Query language: InfluxQL,
+- URL: http://influxdb:8086 (docker service name),
+- Basic auth: enable,
+- User: ariman (the username to login influxdb),
+- Password: influxdb API token,
+- InfluxDB Details - Database: bucketariman (the bucket name in influxdb),
+- InfluxDB HTTP Method: GET
+- InfluxDB Max series: 1000000
+
+> the InfluxDB official site provides a [guide](https://docs.influxdata.com/influxdb/v2/tools/grafana/?t=InfluxQL#Copyright) on how to configure it on Grafana, but with the latest Grafana version 10.4.0 by now, that authentication configuration which provide password with username and provide token with authorization header are neither working, the only working configuration by my test is providing the token to username.
+
+then click `Save & test` should complete the datasource configuration successfully.
+
+##### add dashboard using influxql
+Go to Dashboards to create another dashboard, or import the JSON file, e.g. `k6riman-grafana.dashboard.influxql.json`, then edit exist or create new panel with influxql query language, do select Data source with `influxdb-influxql` which configured above.
+
+> when import the JSON file, choose correct datasource.
+
+![grafana-panel-edit-influxql](../docs/images/grafana-panel-edit-influxql.png)
+
+##### influxql query language
+to query data with influxql well, you need to understand the basic influxql knowledge, below guides are quite enough to cover the necessary skills for testing with K6:
+- [quick guide](https://docs.influxdata.com/influxdb/v2/query-data/influxql/explore-data/)
+- [complete guide](https://docs.influxdata.com/influxdb/v1/query_language/)
 
 #### Tricks
 
