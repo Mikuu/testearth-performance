@@ -143,4 +143,5 @@ Write flux in different ways could bring different impacts to the performance wh
 ![influxdb-query-performance-metrics](../docs/images/influxdb-query-performance-metrics.png)
 
 
-
+##### Grafana auto refresh
+When enable the Auto Refresh to monitor real time testing, set the interval >= 10s, otherwise, e.g. interval = 5s, would bring too frequent API requests from Grafana to InfluxDB and most of them will be closed before InfluxDB gives response, thus Grafana will not able to render the graphs.
