@@ -5,17 +5,17 @@ export default {
     systemTags: [
         // "proto",
         // "subproto",
-        "status",
+        // "status",
         // "method",
-        "url",
-        "name",
-        "group",
+        // "url",
+        // "name",
+        // "group",
         "check",
         // "error",
         // "error_code",
         // "tls_version",
-        "scenario",
-        "service",
+        // "scenario",
+        // "service",
         // "expected_response"
     ],
     summaryTrendStats: [

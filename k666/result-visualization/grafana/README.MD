@@ -128,7 +128,18 @@ then here will be only one line the graph.
 
 ![k6-data-multiGroup-regroup-graph](../docs/images/k6-data-multiGroup-regroup.graph.png)
 
+> above `group` information are pushed to InfluxDB by default, however, you can disable pushing such information to simplify the data structure, this can be configured in the `src/configs/options.config.js`.
+
 ##### Custom panel legend
 For Time series graph, to display multiple lines in a same graph, create multiple queries, one query represent one line, then chose `Overrides` -> Add field override -> Fields returned by query (select query name) -> Standard options Display name (input the name which will be displayed as legend).
 
 ![grafana-custom-legend](../docs/images/grafana-custom-legend.png)
+
+##### Flux query performance metrics
+Write flux in different ways could bring different impacts to the performance when executing those queries, to measurement the performance of each query command, there is an influxdb profiler package can be used to provide helpful information, details could be found at:
+- [measure query performance with flux profilers](https://docs.influxdata.com/influxdb/v2/query-data/optimize-queries/#measure-query-performance-with-flux-profilers)
+- [profiler](https://docs.influxdata.com/flux/v0/stdlib/profiler/)
+![influxdb-query-performance-metrics](../docs/images/influxdb-query-performance-metrics.png)
+
+
+

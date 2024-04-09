@@ -1,11 +1,10 @@
-version: "3.4"
-
 networks:
   grafana:
 
 services:
   influxdb:
     image: influxdb:2.7
+    cpu_count: 2
     networks:
       - grafana
     ports:

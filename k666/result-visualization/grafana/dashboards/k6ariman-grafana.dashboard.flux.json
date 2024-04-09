@@ -146,7 +146,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> group()\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -206,7 +206,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> group()\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -293,7 +293,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"vus\")",
           "refId": "A"
         }
       ],
@@ -371,7 +371,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> min()",
           "refId": "A"
         }
       ],
@@ -449,7 +449,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> max()",
           "refId": "A"
         }
       ],
@@ -527,7 +527,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> median()",
           "refId": "A"
         }
       ],
@@ -605,7 +605,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
           "refId": "A"
         }
       ],
@@ -683,7 +683,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
           "refId": "A"
         }
       ],
@@ -761,7 +761,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
           "refId": "A"
         }
       ],
@@ -901,7 +901,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n",
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"createBook\")\n",
           "refId": "create book duration"
         },
         {
@@ -910,7 +910,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"updateBook\")\n",
           "refId": "update book duration"
         },
         {
@@ -919,7 +919,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")",
+          "query": "aggregateWindowInterview = 1s\n\nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"deleteBook\")",
           "refId": "delete book duration"
         },
         {
@@ -928,7 +928,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "aggregateWindowInterview = 1s\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n",
+          "query": "aggregateWindowInterview = 1s\n  \nfrom(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> aggregateWindow(every: aggregateWindowInterview, fn: max, createEmpty: false)\n  |> yield(name: \"getBook\")\n",
           "refId": "get book duration"
         }
       ],
@@ -1060,7 +1060,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"createBook\")",
           "refId": "vu"
         },
         {
@@ -1069,7 +1069,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
           "refId": "requests"
         },
         {
@@ -1078,7 +1078,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
           "refId": "errors"
         }
       ],
@@ -1211,7 +1211,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_errors\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_errors\")\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -1290,7 +1290,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> mean()",
           "refId": "A"
         }
       ],
@@ -1368,7 +1368,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> min()",
           "refId": "A"
         }
       ],
@@ -1446,7 +1446,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> max()",
           "refId": "A"
         }
       ],
@@ -1524,7 +1524,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> median()",
           "refId": "A"
         }
       ],
@@ -1602,7 +1602,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.95)",
           "refId": "A"
         }
       ],
@@ -1680,7 +1680,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.90)",
           "refId": "A"
         }
       ],
@@ -1758,7 +1758,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.80)",
           "refId": "A"
         }
       ],
@@ -1836,7 +1836,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.70)",
           "refId": "A"
         }
       ],
@@ -1914,7 +1914,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.50)",
           "refId": "A"
         }
       ],
@@ -1992,7 +1992,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_create_book_req_duration\")\n  |> quantile(q: 0.30)",
           "refId": "A"
         }
       ],
@@ -2218,7 +2218,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_errors\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_errors\")\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -2296,7 +2296,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> mean()",
           "refId": "A"
         }
       ],
@@ -2373,7 +2373,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> min()",
           "refId": "A"
         }
       ],
@@ -2450,7 +2450,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> max()",
           "refId": "A"
         }
       ],
@@ -2527,7 +2527,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> median()",
           "refId": "A"
         }
       ],
@@ -2604,7 +2604,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.95)",
           "refId": "A"
         }
       ],
@@ -2681,7 +2681,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.90)",
           "refId": "A"
         }
       ],
@@ -2758,7 +2758,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.80)",
           "refId": "A"
         }
       ],
@@ -2835,7 +2835,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.70)",
           "refId": "A"
         }
       ],
@@ -2912,7 +2912,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.50)",
           "refId": "A"
         }
       ],
@@ -2989,7 +2989,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_get_book_req_duration\")\n  |> quantile(q: 0.30)",
           "refId": "A"
         }
       ],
@@ -3214,7 +3214,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_errors\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_errors\")\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -3292,7 +3292,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> mean()",
           "refId": "A"
         }
       ],
@@ -3369,7 +3369,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> min()",
           "refId": "A"
         }
       ],
@@ -3446,7 +3446,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> max()",
           "refId": "A"
         }
       ],
@@ -3523,7 +3523,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> median()",
           "refId": "A"
         }
       ],
@@ -3600,7 +3600,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.95)",
           "refId": "A"
         }
       ],
@@ -3677,7 +3677,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.90)",
           "refId": "A"
         }
       ],
@@ -3754,7 +3754,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.80)",
           "refId": "A"
         }
       ],
@@ -3831,7 +3831,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.70)",
           "refId": "A"
         }
       ],
@@ -3908,7 +3908,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.50)",
           "refId": "A"
         }
       ],
@@ -3985,7 +3985,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_update_book_req_duration\")\n  |> quantile(q: 0.30)",
           "refId": "A"
         }
       ],
@@ -4210,7 +4210,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_errors\")\n  |> group()\n  |> sum()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_errors\")\n  |> sum()",
           "refId": "A"
         }
       ],
@@ -4288,7 +4288,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> mean()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> mean()",
           "refId": "A"
         }
       ],
@@ -4365,7 +4365,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> min()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> min()",
           "refId": "A"
         }
       ],
@@ -4442,7 +4442,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> max()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> max()",
           "refId": "A"
         }
       ],
@@ -4519,7 +4519,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> group()\n  |> median()",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> median()",
           "refId": "A"
         }
       ],
@@ -4596,7 +4596,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.95)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.95)",
           "refId": "A"
         }
       ],
@@ -4673,7 +4673,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.90)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.90)",
           "refId": "A"
         }
       ],
@@ -4750,7 +4750,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.80)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.80)",
           "refId": "A"
         }
       ],
@@ -4827,7 +4827,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.70)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.70)",
           "refId": "A"
         }
       ],
@@ -4904,7 +4904,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.50)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.50)",
           "refId": "A"
         }
       ],
@@ -4981,7 +4981,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> group()\n  |> quantile(q: 0.30)",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cm_delete_book_req_duration\")\n  |> quantile(q: 0.30)",
           "refId": "A"
         }
       ],
@@ -5090,8 +5090,8 @@
     "list": []
   },
   "time": {
-    "from": "2024-03-27T03:53:30.000Z",
-    "to": "2024-03-27T04:04:30.000Z"
+    "from": "2024-04-09T02:10:11.000Z",
+    "to": "2024-04-09T02:20:19.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -5120,7 +5120,7 @@
   },
   "timezone": "browser",
   "title": "k6 reporting - flux",
-  "uid": "84OnF0OGk",
-  "version": 3,
+  "uid": "84OnF0OGkd",
+  "version": 7,
   "weekStart": ""
 }
