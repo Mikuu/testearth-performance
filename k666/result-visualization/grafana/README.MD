@@ -139,6 +139,7 @@ For Time series graph, to display multiple lines in a same graph, create multipl
 Write flux in different ways could bring different impacts to the performance when executing those queries, to measurement the performance of each query command, there is an influxdb profiler package can be used to provide helpful information, details could be found at:
 - [measure query performance with flux profilers](https://docs.influxdata.com/influxdb/v2/query-data/optimize-queries/#measure-query-performance-with-flux-profilers)
 - [profiler](https://docs.influxdata.com/flux/v0/stdlib/profiler/)
+
 ![influxdb-query-performance-metrics](../docs/images/influxdb-query-performance-metrics.png)
 
 
