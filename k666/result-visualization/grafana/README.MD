@@ -1,11 +1,13 @@
 Grafana Visualization
 --
 
-We use Grafana to visualize K6 tests results, need to install and configure grafana and influxdb properly.
+We use Grafana to visualize K6 tests results, the data source could be InfluxDB and TimescaleDB, both of them are time series database.
+
+## Visualize with Grafana and InfluxDB
 
 ### Launch Grafana and InfluxDB service
 ```shell
-docker-compose up -d
+docker-compose -f docker-compose.influxdb.yml -d
 ```
 
 ### Configure InfluxDB
@@ -77,7 +79,6 @@ After that, click `SCRIPT EDITOR` button, you can get the script editor similar 
 
 ![influxdb-dataExplorer-influxQuery-script](../docs/images/influxdb-dataExplorer-fluxQuery-script.png)
 
-
 #### Configure Grafana to sue influxql query
 Grafana supports use both flux and influxql as its query language to fetch data from Influxdb v2 (flux will be abandoned in Influxdb v3, which only supports SQL and influxql as its query language). If you want to configure Grafana use influxql to generate reports graph, you need to configure separate datasource for that.
 
@@ -110,6 +111,9 @@ to query data with influxql well, you need to understand the basic influxql know
 - [complete guide](https://docs.influxdata.com/influxdb/v1/query_language/)
 
 #### Tricks
+
+##### Grafana global variables
+Grafana provide some global variables which can be used in queries, e.g. `$__timeFilter`, the detailed introduction can be found at [here](https://grafana.com/docs/grafana/latest/dashboards/variables/add-template-variables/#global-variables).
 
 ##### K6 data in group
 When K6 test scripts use `group` to package different scenarios, the test data pushed to influxdb will be grouped into multiple tables,
@@ -145,3 +149,31 @@ Write flux in different ways could bring different impacts to the performance wh
 
 ##### Grafana auto refresh
 When enable the Auto Refresh to monitor real time testing, set the interval >= 10s, otherwise, e.g. interval = 5s, would bring too frequent API requests from Grafana to InfluxDB and most of them will be closed before InfluxDB gives response, thus Grafana will not able to render the graphs.
+
+## Visualize with Grafana and TimescaleDB
+
+### Launch Grafana and TimescaleDB service
+```shell
+docker-compose -f docker-compose.timescaledb.yml -d
+```
+
+### Create database in postgres database
+TimescaleDB use postgres database, doesn't provide any webui as Influxdb, and the worse is that before running the test, it needs manually create the database. Follow the guide in `TIMESCALEDB.README.MD` to access the timescaledb container and create database `k6`.
+
+### Configure data source in Grafana
+Go to Connections -> Data sources to add a postgres data source with below information:
+- Name: k6timescaledb,
+- Host URL: timescaledb:5432 (docker service name)
+- Database name: k6 (the name manually created in postgres container)
+- Authentication - Username: postgres
+- Authentication - Password: password
+- Authentication - TLS/SSL Mode: disable
+- Additional settings - Version: 14
+- Additional settings - TimescaleDB: enable
+
+![timescaledb-datasource](../docs/images/timescaledb-datasource.png)
+
+then click `Save & test`, the connection should be working.
+
+### Create Grafana dashboards
+Follow the above similar steps to create dashboards and panels in Grafana, use the postgresql query languages. More detailed guide could be found at the official [document](https://grafana.com/docs/grafana/latest/datasources/postgres).
