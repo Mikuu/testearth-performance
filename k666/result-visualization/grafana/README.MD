@@ -177,3 +177,24 @@ then click `Save & test`, the connection should be working.
 
 ### Create Grafana dashboards
 Follow the above similar steps to create dashboards and panels in Grafana, use the postgresql query languages. More detailed guide could be found at the official [document](https://grafana.com/docs/grafana/latest/datasources/postgres).
+
+Dashboard could be imported from exists JSON file at `dashboards/k6ariman-grafana.dashboard.timescaledb.json`.
+
+#### Basic queries
+Belows are some queries for basic data visualization:
+
+##### total request
+![query-postgresql-request](../docs/images/query-postgresql-request.png)
+
+##### vu
+![query-postgresql-vu](../docs/images/query-postgresql-vu.png)
+
+##### duration max
+![query-postgresql-durationMax](../docs/images/query-postgresql-durationMax.png)
+
+##### percentile
+![query-postgresql-percentile](../docs/images/query-postgresql-percentile.png)
+
+##### time bucket
+There is no aggregateWindow function in Postgresql, use time_bucket instead. When us `AS` keyword, the alia name will be used as the legend.
+![query-postgresql-timeBucket](../docs/images/query-postgresql-timeBucket.png)
