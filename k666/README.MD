@@ -40,7 +40,7 @@ in another word to build a customized k6 binary file. Official repo at `https://
 
 #### 3. run tests
 ```shell
-./run2grafana.sh
+./run2grafana.influxdb.sh
 ```
 
 ### Distributed Run tests
