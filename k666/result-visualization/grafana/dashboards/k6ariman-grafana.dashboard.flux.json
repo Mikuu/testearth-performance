@@ -170,6 +170,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -1060,7 +1064,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-FLUX}"
           },
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"createBook\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"vus\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"vus\")",
           "refId": "vu"
         },
         {
@@ -1069,7 +1073,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"http_reqs\")\n  |> group()\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"requests\")",
           "refId": "requests"
         },
         {
@@ -1078,7 +1082,7 @@
             "uid": "${DS_INFLUXDB-FLUX}"
           },
           "hide": false,
-          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"sum\")",
+          "query": "from(bucket: \"bucketariman\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"errors\")\n  |> aggregateWindow(every: 1s, fn: sum, createEmpty: false)\n  |> yield(name: \"errors\")",
           "refId": "errors"
         }
       ],
@@ -1175,6 +1179,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -2182,6 +2190,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -3178,6 +3190,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -4087,7 +4103,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4174,6 +4190,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -5090,8 +5110,8 @@
     "list": []
   },
   "time": {
-    "from": "2024-04-09T02:10:11.000Z",
-    "to": "2024-04-09T02:20:19.000Z"
+    "from": "2024-03-27T03:53:30.000Z",
+    "to": "2024-03-27T04:04:30.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -5121,6 +5141,6 @@
   "timezone": "browser",
   "title": "k6 reporting - flux",
   "uid": "84OnF0OGkd",
-  "version": 7,
+  "version": 10,
   "weekStart": ""
 }

@@ -172,6 +172,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -297,7 +301,7 @@
             "type": "influxdb",
             "uid": "${DS_INFLUXDB-INFLUXQL}"
           },
-          "query": "SELECT \"value\" FROM \"vus\" WHERE $timeFilter",
+          "query": "SELECT SUM(\"value\") FROM \"vus\" WHERE $timeFilter GROUP BY time(1s)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1195,7 +1199,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"value\" FROM \"vus\" WHERE $timeFilter",
+          "query": "SELECT SUM(\"value\") FROM \"vus\" WHERE $timeFilter GROUP BY time(1s)",
           "rawQuery": true,
           "refId": "vu",
           "resultFormat": "time_series",
@@ -1364,6 +1368,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -2398,6 +2406,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -3420,6 +3432,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -4457,6 +4473,10 @@
             "steps": [
               {
                 "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -5459,7 +5479,7 @@
   },
   "timezone": "browser",
   "title": "k6 reporting - InfluxQL",
-  "uid": "84OnF0OMNK",
-  "version": 8,
+  "uid": "84OnF0OMNKD",
+  "version": 6,
   "weekStart": ""
 }
