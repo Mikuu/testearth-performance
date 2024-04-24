@@ -29,4 +29,5 @@ export default {
         "p(90)",
         "p(95)"
     ],
+    discardResponseBodies: true,    // save memory when run heavy load tests, this will not save response body into memory.
 };
