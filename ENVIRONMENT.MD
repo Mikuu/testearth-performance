@@ -95,4 +95,11 @@ systemctl set-default graphical.target
 When run the load testing, no matter use Jmeter, ab, or K6, always monitor the system resource on the load generator system (also on the target system if possible), on Debian, can use `nmon` to monitor CPU, Memory and Network usage, on Mac system, can use `htop`. Especially, when use K6, memory will be quickly consumed when running 10000+ vus.
 
 #### System request limit
-A single Linux machine can open up to `65,535` sockets per IP address (refer to RFC 6056 for details). This means that a maximum of 65k requests can be sent simultaneously on a single machine. Then, the RPS limit depends on the response time of the SUT. If responses are delivered in 100ms, the theoretical RPS limit is 650,000 for HTTP/1 requests to a single remote address.
+在压测中，每一个并发就是一个TCP链接，标识一个TCP链接的要素有四个：客户端IP、客户端端口、服务端IP、服务端端口，这四个要素描述一个唯一的TCP链接。
+##### 客户端的TCP链接数
+压测模拟由客户端向服务端发起并发请求，单个压测工具所在的服务器固定，所以客户端IP、服务端IP、服务端端口这三者固定，只有客户端端口可变，单个服务器支持的端口最大数量是2^16=65536，减去0做为特殊用途，所以客户端能生成的最大TCP连接数是65535，即单个压测工具能同时生成的并发请求数的理论上限是`65535`。
+
+##### 服务端的TCP连接数
+在服务端，一个被测服务绑定唯一的一个端口，所以服务端IP、服务端端口这两者固定，发起连接的客户端IP和客户端端口都是不固定的，所以理论上，一个被测服务在单个系统上能构建的最大TCP链接数量是2^32(全体IPv4的地址） * 2^16（单个IPv4地址上的全部端口），结果约为`2800万亿`。但很显然，其他物理资源条件，比如内存、文件等无法支持这个数量。 
+
+TCP链接一般都由Socket建立，每个Socket都会占用内存，且一个Socket就表征一个文件描述符。所以，对于被测服务，限制并发连接数量的不是端口数量，而是可以建立的TCP链接数，也就是取决于内存、CPU、最大文件数等限制。
