@@ -73,6 +73,9 @@ sudo sysctl -w net.inet.ip.portrange.first=32768
 The target service somehow need their own settings to support heavy load testing, e.g. for SpringBoot application, it may configure maxConnection, maxThreads and acceptAccount, especially to the maxConnection setting, e.g.
 ```properties
 server.tomcat.max-connections=1000000
+server.tomcat.accept-count=10000
+server.tomcat.threads.min-spare=25
+server.tomcat.threads.max=30000
 ```
 > more detailed spring boot settings can be found at the [official site](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.server.server.tomcat.accept-count).
 
@@ -103,3 +106,16 @@ When run the load testing, no matter use Jmeter, ab, or K6, always monitor the s
 在服务端，一个被测服务绑定唯一的一个端口，所以服务端IP、服务端端口这两者固定，发起连接的客户端IP和客户端端口都是不固定的，所以理论上，一个被测服务在单个系统上能构建的最大TCP链接数量是2^32(全体IPv4的地址） * 2^16（单个IPv4地址上的全部端口），结果约为`2800万亿`。但很显然，其他物理资源条件，比如内存、文件等无法支持这个数量。 
 
 TCP链接一般都由Socket建立，每个Socket都会占用内存，且一个Socket就表征一个文件描述符。所以，对于被测服务，限制并发连接数量的不是端口数量，而是可以建立的TCP链接数，也就是取决于内存、CPU、最大文件数等限制。
+
+##### 被测服务的性能调优
+Java启动服务时，通常使用以下的参数来设置内存的使用：
+- Xms，设置JVM堆内存的初始大小，当程序运行使用的内存大于这个值时，会触发垃圾回收，如果垃圾回收后内存任然无法满足需求，JVM将抛出OutOfMemoryError异常；
+- Xmx, 设置JVM堆内存的最大值，当程序运行时的内存使用量大于这个值时，JVM将抛出OutOfMemoryError异常；
+- Xss, 设置JVM启动时为每个线程分配的内存，会影响总共开启的线程的数量；
+
+Xms设置过低，服务可能会因为内存不够而崩溃，Xss设置过低，每个线程也可能因为内存不够而奔溃，Xss设置过高又可能造成能够开启的线程数量下降。比如，对于单机的被测服务来说，其物理内存是固定的，例如一个4G内存的机器，除去Linux系统开销，可用内存一般是3G多，我们就算3G的可使用内存，如果Xms配置2G的内存，那么留给系统创建TCP链接的可用内存就会低于1G，会限制可以创建的TCP链接数，从而影响性能。类似的，如果Xss设置都比较大，能够开启的线程数量就会降低，等于能处理的并发数量也会降低，同样会影响性能。
+
+一些可能限制线程数量的系统配置：
+- /proc/sys/kernel/threads-max，系统支持的最大线程数；
+- /proc/sys/kernel/pid_max，表示PID的最大值，这个值会限制线程数量；
+- /proc/sys/vm/max_map_count，用于控制一个进程可以拥有的最大内存映射区域数量，这个值会限制线程数量；
