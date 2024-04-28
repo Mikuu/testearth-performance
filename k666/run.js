@@ -7,9 +7,9 @@ import { deleteBookScenario } from "./src/scenarios/deleteBook.scenario.js";
 import { compositeScenario } from "./src/scenarios/composite.scenario.js";
 
 const stages = [
-    { duration: "5m", target: 20000 },
-    { duration: "3m", target: 20000 },
-    { duration: "2m", target: 30 },
+    { duration: "20s", target: 200 },
+    // { duration: "3m", target: 20000 },
+    // { duration: "2m", target: 30 },
     // { duration: "10m", target: 10 },
     // { duration: "5m", target: 5 },
 ];
