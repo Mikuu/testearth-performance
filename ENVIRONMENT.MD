@@ -29,6 +29,19 @@ ulimit -n
 ulimit -n 15000
 ```
 
+##### 关于最大文件数
+1. 在`/etc/sysctl.conf`中添加行：
+   - `fs.file-max=500050000`，设置整个系统运行打开的最大文件数，结果可以通过命令`cat /proc/sys/fs/file-max`验证；
+   - `fs.nr_open=3030000`, 设置单个进程可以打开的最大文件数，结果可以通过命令`cat /proc/sys/fs/nr_open`验证；
+   设置完成后通过命令`sudo sysctl -p`激活生效；
+2. 在`/etc/security/limit.conf`中进行的设置是针对用户或者用户组的Soft limit与Hard limit；
+3. 使用`ulimit -n`进行的设置是针对当前会话的临时设置，且仅仅是对shell程序进行的设置，比如shell命令与shell脚本，但java、nodejs、python等执行程序就不是shell程序；
+4. 设置的范畴为: ulimit <= soft limit <= hard limit <= nr_open <= file-max；
+5. 命令`cat /proc/sys/kernel/pid_max`显示当前系统允许的最大进程数；
+6. 在`/etc/security/limit.conf`中，使用`nproc`设置用户允许的最大进程数；
+
+而一个用户可以打开的最大文件数=用户可以打开最大进程数 * 每个进程可以打开的最大文件数，更多的内容可以参考[这里](https://www.zhihu.com/question/594751198/answer/3260696631)
+
 #### Max open file limit on Mac OS
 ```shell
 # get current max open file limit
