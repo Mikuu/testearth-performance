@@ -38,7 +38,16 @@ maxfiles 256 unlimited  # 256 is soft limit, unlimited is hard limit
 # change both soft limit and hard limit
 sudo launchctl limit maxfiles 10000
 ```
-Sometimes, there may also have `ulimit` settings in the Mac OS, so just double check if `ulimit -n` print a lower limit than maxfiles, change it accordingly.
+Sometimes 1, there may also have `ulimit` settings in the Mac OS, so just double check if `ulimit -n` print a lower limit than maxfiles, change it accordingly.
+
+Sometimes 2, the `launchctl limit maxfiles` may encounter failure `Operation not permitted while System Integrity Protection is engaged`, this is a bug, and there is a workaround:
+```shell
+# set the default value first
+launchctl limit maxfiles 256 unlimited
+
+# then set the target value.
+launchctl limit maxfiles 128000 524288
+```
 
 ### Port range limit
 System has its own limit on the port range for each process, there need to be enough ports to establish connections for concurrent users.
