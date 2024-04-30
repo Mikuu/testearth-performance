@@ -41,4 +41,31 @@ Unlike k6, Jmeter natively doesn't have the ability to show real-time result dur
 
 ### Distributed test
 Jmeter can run distributed tests, follow the below setup, you need to run `jmeter-server` in the work nodes, and run `jmeter` in the control node, detailed configuration can be found at the [official document](https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html).
-![distributed](docs/images/distributed.png)
+![distributed](docs/images/distributed.png). Jmeter on single node usually can only support about 1000 threads (but can up to 6w+ TCPs).
+
+### 常用组件
+- `线程组` 
+- `HTTP Cookie管理器`
+- `HTTP请求默认值` 
+- `自定义用户变量`
+- `同步定时器` - 集合点，用于实现并发，线程结束后会退出，如果最后的剩下的线程数低于设定的并发线程数，就会一直等待，所以必须要设置延时触发，即在设定的时间内等不到足量的线程数也触发请求；
+- `事务控制器` - [逻辑控制器] 可以把多个HTTP请求拖到一个事务控制器里面，组合成一个事务，便于统计这个事务的TPS；
+- `仅一次控制器` - [逻辑控制器] 类似于事务控制器，但在多轮执行中仅执行一次，主要用于登录，或其他在场景中仅执行一次的操作；
+- `吞吐量控制器` - [逻辑控制器] 以百分比或者绝对值的方式控制事务或者请求的执行数量，只能小于等于总执行次数；
+- `定时器` - 用于延时；
+- `HTTP请求` 
+- `HTTP信息头管理器` 
+- `查看结果数` 
+- `聚合报告` 
+- `用表格查看结果`
+
+### 常用功能
+- 设置Jmeter为系统代理来录制请求
+- 在ResponseBody或者Header中使用正则表达式
+
+### 图形化报表
+Jmeter在GUI上面的图形化报表，特别是实时报表都需要安装插件，但鉴于正常测试都不会使用GUI，所以这些报表的实用性不高；
+Jmeter也可以使用`后置监听器`将测试数据发送到InfluxDB，然后用Grafana来做可视化；
+
+### 复合的压测模型
+默认的`线程组`组件只能进行最简单的压测，不能实现类似k6的Executor的复杂压测模型，要实现自定义饭复杂模型，需要安装特定的插件，比如Stepping Thread Group；
